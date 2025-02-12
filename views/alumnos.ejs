@@ -1,18 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Alumnos del Curso</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos Matriculados</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Alumnos Matriculados</h1>
-    <ul>
-        <% alumnos.forEach(alumno => { %>
-            <li><%= alumno.nombre %> - <%= alumno.aprobado ? "Aprobado" : "Suspendido" %> 
-                <form action="/alumno/<%= alumno.id %>/eliminar" method="POST">
-                    <button type="submit">Eliminar</button>
-                </form>
-            </li>
-        <% }) %>
-    </ul>
+    <h1>Listado de Alumnos</h1>
+    
+    <form action="/alumnos" method="GET">
+        <label for="curso">Selecciona un curso:</label>
+        <select name="curso" id="curso" onchange="location = '/alumnos/' + this.value">
+            <option value="">-- Selecciona un curso --</option>
+            <% cursos.forEach(curso => { %>
+                <option value="<%= curso.id %>"><%= curso.nombre %></option>
+            <% }); %>
+        </select>
+    </form>
+    
+    <% if (alumnos.length > 0) { %>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Aprobado</th>
+            </tr>
+            <% alumnos.forEach(alumno => { %>
+            <tr>
+                <td><%= alumno.nombre %></td>
+                <td><%= alumno.aprobado ? 'Sí' : 'No' %></td>
+            </tr>
+            <% }); %>
+        </table>
+    <% } else { %>
+        <p>Selecciona un curso para ver los alumnos.</p>
+    <% } %>
+    
+    <br>
+    <a href="/">Volver al inicio</a>
 </body>
 </html>

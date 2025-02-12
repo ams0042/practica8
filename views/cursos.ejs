@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cursos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Listado de Cursos</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Nivel</th>
+            <th>Lugar</th>
+            <th>Acciones</th>
+        </tr>
+        <% if (cursos.length > 0) { %>
+            <% cursos.forEach(curso => { %>
+            <tr>
+                <td><%= curso.nombre %></td>
+                <td><%= curso.descripcion %></td>
+                <td><%= curso.nivel %></td>
+                <td><%= curso.lugar %></td>
+                <td><a href="/cursos/editar/<%= curso.id %>">Editar</a></td>
+            </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="5">No hay cursos disponibles.</td>
+            </tr>
+        <% } %>
+    </table>
+    <br>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>

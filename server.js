@@ -1,61 +1,34 @@
 const express = require('express');
-const db = require('./db');
+const bodyParser = require('body-parser');
+const db = require('./config/database');
+const cursosRoutes = require('./routes/cursos');
+const centrosRoutes = require('./routes/centros');
+const alumnosRoutes = require('./routes/alumnos');
+const graficoRoutes = require('./routes/grafico');
+const dotenv = require('dotenv');
+
+dotenv.config();
 const app = express();
+const port = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views'); // Asegura que Express encuentre las vistas
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
-// Página de inicio - Mostrar cursos
+
+// Definir rutas
+app.use('/cursos', cursosRoutes);
+app.use('/centros', centrosRoutes);
+app.use('/alumnos', alumnosRoutes);
+app.use('/grafico', graficoRoutes);
+
+// Ruta de inicio
 app.get('/', (req, res) => {
-    db.query("SELECT * FROM cursos", (err, results) => {
-        if (err) throw err;
-        res.render('index', { cursos: results });
-    });
+    res.render('index');
 });
 
-// Listado de centros
-app.get('/centros', (req, res) => {
-    db.query("SELECT * FROM centros", (err, results) => {
-        if (err) throw err;
-        res.render('centros', { centros: results });
-    });
+app.listen(port, () => {
+    console.log(`Servidor corriendo en http://localhost:${port}`);
 });
-
-// Alumnos de un curso
-app.get('/curso/:id/alumnos', (req, res) => {
-    const { id } = req.params;
-    db.query("SELECT * FROM alumnos WHERE curso_id = ?", [id], (err, results) => {
-        if (err) throw err;
-        res.render('alumnos', { alumnos: results, cursoId: id });
-    });
-});
-
-// Borrar alumno
-app.post('/alumno/:id/eliminar', (req, res) => {
-    const { id } = req.params;
-    db.query("DELETE FROM alumnos WHERE id = ?", [id], err => {
-        if (err) throw err;
-        res.redirect('back');
-    });
-});
-
-// Modificar curso
-app.get('/curso/:id/editar', (req, res) => {
-    db.query("SELECT * FROM cursos WHERE id = ?", [req.params.id], (err, result) => {
-        if (err) throw err;
-        res.render('editar', { curso: result[0] });
-    });
-});
-
-app.post('/curso/:id/actualizar', (req, res) => {
-    const { id } = req.params;
-    const { nombre, descripcion } = req.body;
-    db.query("UPDATE cursos SET nombre = ?, descripcion = ? WHERE id = ?", [nombre, descripcion, id], err => {
-        if (err) throw err;
-        res.redirect('/');
-    });
-});
-
-app.listen(3000, () => console.log("🚀 Servidor corriendo en http://localhost:3000"));

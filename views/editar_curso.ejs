@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Curso</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Editar Curso</h1>
+    <% if (!curso) { %>
+        <p>Error: Curso no encontrado.</p>
+    <% } else { %>
+        <form action="/cursos/actualizar/<%= curso.id %>" method="POST">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="<%= curso.nombre %>" required>
+            <label>Descripción:</label>
+            <textarea name="descripcion" required><%= curso.descripcion %></textarea>
+            <label>Nivel:</label>
+            <input type="text" name="nivel" value="<%= curso.nivel %>" required>
+            <label>Lugar:</label>
+            <input type="text" name="lugar" value="<%= curso.lugar %>" required>
+            <button type="submit">Actualizar</button>
+        </form>
+    <% } %>
+    <br>
+    <a href="/cursos">Volver a la lista de cursos</a>
+</body>
+</html>

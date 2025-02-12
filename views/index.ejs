@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Listado de Cursos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Cursos disponibles</h1>
-    <ul>
-        <% cursos.forEach(curso => { %>
-            <li><%= curso.nombre %> - <a href="/curso/<%= curso.id %>/alumnos">Ver alumnos</a></li>
-        <% }) %>
-    </ul>
+    <h1>Bienvenido a la Plataforma de Cursos</h1>
+    <nav>
+        <ul>
+            <li><a href="/centros">Centros</a></li>
+            <li><a href="/cursos">Cursos</a></li>
+            <li><a href="/alumnos">Alumnos</a></li>
+            <li><a href="/grafico">Gráfica de Aprobados</a></li>
+        </ul>
+    </nav>
+    <p>Seleccione una opción del menú para continuar.</p>
 </body>
 </html>
