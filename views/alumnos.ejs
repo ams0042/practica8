@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alumnos del Curso</title>
+</head>
+<body>
+    <h1>Alumnos Matriculados</h1>
+    <ul>
+        <% alumnos.forEach(alumno => { %>
+            <li><%= alumno.nombre %> - <%= alumno.aprobado ? "Aprobado" : "Suspendido" %> 
+                <form action="/alumno/<%= alumno.id %>/eliminar" method="POST">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

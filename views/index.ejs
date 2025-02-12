@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de Cursos</title>
+</head>
+<body>
+    <h1>Cursos disponibles</h1>
+    <ul>
+        <% cursos.forEach(curso => { %>
+            <li><%= curso.nombre %> - <a href="/curso/<%= curso.id %>/alumnos">Ver alumnos</a></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

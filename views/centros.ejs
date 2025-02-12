@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de Centros</title>
+</head>
+<body>
+    <h1>Centros de Formación</h1>
+    <ul>
+        <% centros.forEach(centro => { %>
+            <li><%= centro.nombre %> - <%= centro.ubicacion %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
